@@ -7,6 +7,7 @@ public class RigidbodyPlayer : MonoBehaviour
 {
 
     private Rigidbody2D rb;
+    private SurroundingsCheck surroundingsChecker;
     public KeyCode[] myInputs;
     public float moveForce;
     public float initMoveForce;
@@ -23,9 +24,15 @@ public class RigidbodyPlayer : MonoBehaviour
     public float currentCharge;
     public bool onPlatform;
     public Image chargeImage;
+
+    [Header("Can Use Specials")]
+    public bool canDoubleJump = false;
+    public bool canAirDash = false;
+
     // Use this for initialization
     void Start()
     {
+        surroundingsChecker = GetComponent<SurroundingsCheck>();
         currentCharge = maxCharge;
         normJumpVel = jumpVelocity;
         rb = GetComponent<Rigidbody2D>();
@@ -42,11 +49,8 @@ public class RigidbodyPlayer : MonoBehaviour
     {
         
         ChargeCheck();
-        if (CanJump)
-        {
-            moveForce = initMoveForce;
+
             PlayerJump();
-        }
         if (!CanJump && moveForce >= airborneHorizontalMovement)
         {
             moveForce = airborneHorizontalMovement;
@@ -84,8 +88,26 @@ public class RigidbodyPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(myInputs[2]))
         {
-            CanJump = false;
-            rb.velocity = Vector2.up * jumpVelocity;
+            if (CanJump)
+            {
+                moveForce = initMoveForce;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.velocity = Vector2.up * jumpVelocity;
+                if (surroundingsChecker.doubleJumpEnabled == true)
+                {
+                    canDoubleJump = true;
+                }
+            }
+            else
+            {
+                if (canDoubleJump)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                    rb.velocity = Vector2.up * jumpVelocity;
+                    canDoubleJump = false;
+                }
+              
+            }
         }
     }
     public void ChargeCheck()
@@ -95,7 +117,7 @@ public class RigidbodyPlayer : MonoBehaviour
         if (!onPlatform)
         {
             currentCharge -= Time.deltaTime * 12;
-            GameManager.instance.score--;
+            GameManager.instance.currentCharge--;
         }
         if (onPlatform)
         {

@@ -12,8 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject coin;
     public Vector2 [] spawnLoc;
     public bool coinExists;
-    public int score = 0;
-    public int highScore = 0;
+    public int currentCharge = 0;
     // Use this for initialization
     void Start()
     {
@@ -31,44 +30,29 @@ public class GameManager : MonoBehaviour
         string fullFilePath = Application.dataPath + Path.DirectorySeparatorChar + "SaveData.txt";
         if (File.Exists(fullFilePath))
         {
-            string highScoreString = File.ReadAllText(fullFilePath);
-            highScore = int.Parse(highScoreString);
+            //here is where we mark what upgrades the player has enabled
+            //here is where we mark which charge station the player last touched
+            //here is where we mark how much time the player has left
         }
-        rand = 0f;
-        randCap = Random.Range(1f, 3f);
+   
     }
 
     // Update is called once per frame
     void Update()
     {
-        score = Mathf.Clamp(score, 0, 1000000000);
-        if (!coinExists)
-        {
-            rand += Time.deltaTime;
-        }
-        
-
-        if (rand >= randCap)
-        {
-            coinExists = true;
-            GameObject c = Instantiate(coin) as GameObject;
-            int rando = Random.Range(0, spawnLoc.Length);
-            c.transform.position = spawnLoc[rando];
-            randCap = Random.Range(1f, 3f);
-            rand = 0f;
-        }
+        currentCharge = Mathf.Clamp(currentCharge, 0, 1000000000);
 
     }
 
     public void EndGame()
     {
-        if (score > highScore)
-        {
-            highScore = score;
-
-            string fullFilePath = Application.dataPath + Path.DirectorySeparatorChar + "SaveData.txt";
-            File.WriteAllText(fullFilePath, highScore.ToString());
-        }
+      
         SceneManager.LoadScene("GameOverScene");
+    }
+
+    public void WonGame()
+    {
+
+        SceneManager.LoadScene("GameWonScreen");
     }
 }

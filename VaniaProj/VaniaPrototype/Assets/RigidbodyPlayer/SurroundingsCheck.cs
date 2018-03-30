@@ -5,10 +5,16 @@ using UnityEngine;
 public class SurroundingsCheck : MonoBehaviour {
 
     private Rigidbody2D rb;
+    private RigidbodyPlayer player;
     public float raydist;
+    [Header("Upgrades Enabled")]
+    public bool doubleJumpEnabled = false;
+    public bool wallJumpEnabled = false;
+    public bool airDashEnabled = false;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<RigidbodyPlayer>();
 	}
 	
 	// Update is called once per frame
@@ -27,13 +33,13 @@ public class SurroundingsCheck : MonoBehaviour {
             {
                 if (hitDown.collider.tag == "Ground")
                 {
-                    GetComponent<RigidbodyPlayer>().CanJump = true;
-                    GetComponent<RigidbodyPlayer>().onPlatform = false;
+                    player.CanJump = true;
+                    player.onPlatform = false;
                 }
                 else if (hitDown.collider.tag == "Charger")
                 {
-                    GetComponent<RigidbodyPlayer>().onPlatform = true;
-                    GetComponent<RigidbodyPlayer>().CanJump = true;
+                    player.onPlatform = true;
+                    player.CanJump = true;
                 }
 
             }
@@ -43,7 +49,7 @@ public class SurroundingsCheck : MonoBehaviour {
                 if (hitLeft.collider.tag == "Ground")
                 {
 
-                    GetComponent<RigidbodyPlayer>().CanJump = true;
+                    player.CanJump = true;
                 }
             }
 
@@ -52,15 +58,17 @@ public class SurroundingsCheck : MonoBehaviour {
                 if (hitRight.collider.tag == "Ground")
                 {
 
-                    GetComponent<RigidbodyPlayer>().CanJump = true;
+                    player.CanJump = true;
                 }
             }
 
         }
         else
         {
-            GetComponent<RigidbodyPlayer>().CanJump = false;
-            GetComponent<RigidbodyPlayer>().onPlatform = false;
+           
+                player.CanJump = false;
+                player.onPlatform = false;
+
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaniaPrototype", "VaniaPrototype.csproj", "{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaniaPrototype.Editor", "VaniaPrototype.Editor.csproj", "{3C054495-2ABC-CDE4-29A5-D19085874FD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C054495-2ABC-CDE4-29A5-D19085874FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C054495-2ABC-CDE4-29A5-D19085874FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C054495-2ABC-CDE4-29A5-D19085874FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C054495-2ABC-CDE4-29A5-D19085874FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
