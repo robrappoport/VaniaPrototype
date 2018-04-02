@@ -35,18 +35,20 @@ public class SurroundingsCheck : MonoBehaviour {
                 {
                     player.CanJump = true;
                     player.onPlatform = false;
+                    player.canAirDash = true;
                 }
                 else if (hitDown.collider.tag == "Charger")
                 {
                     player.onPlatform = true;
                     player.CanJump = true;
+                    player.canAirDash = true;
                 }
 
             }
 
             if (hitLeft.collider != null)
             {
-                if (hitLeft.collider.tag == "Ground")
+                if (hitLeft.collider.tag == "Ground" && wallJumpEnabled)
                 {
 
                     player.CanJump = true;
@@ -55,7 +57,7 @@ public class SurroundingsCheck : MonoBehaviour {
 
             if (hitRight.collider != null)
             {
-                if (hitRight.collider.tag == "Ground")
+                if (hitRight.collider.tag == "Ground" && wallJumpEnabled)
                 {
 
                     player.CanJump = true;

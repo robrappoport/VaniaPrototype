@@ -19,7 +19,7 @@ public class RigidbodyPlayer : MonoBehaviour
     public bool CanJump;
     public bool Grounded;
     public float airborneHorizontalMovement;
-
+    public bool facingRight;
     public float maxCharge;
     public float currentCharge;
     public bool onPlatform;
@@ -41,15 +41,22 @@ public class RigidbodyPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        PlayerMovement();
         GravityMultiplier();
        
     }
     private void Update()
     {
-        
+        Debug.Log("velocity: " + rb.velocity);
+        PlayerMovement();
         ChargeCheck();
 
+        if (surroundingsChecker.airDashEnabled)
+        {
+            if (canAirDash && Input.GetKey(myInputs[3]))
+            {
+                AirDash();
+            }
+        }
             PlayerJump();
         if (!CanJump && moveForce >= airborneHorizontalMovement)
         {
@@ -63,10 +70,12 @@ public class RigidbodyPlayer : MonoBehaviour
         if (Input.GetKey(myInputs[0]))
         {
             transform.Translate(-Vector2.right * (moveForce * Time.deltaTime));
+            facingRight = false;
         }
         if (Input.GetKey(myInputs[1]))
         {
             transform.Translate(Vector2.right * (moveForce * Time.deltaTime));
+            facingRight = true;
         }
 
     }
@@ -137,6 +146,20 @@ public class RigidbodyPlayer : MonoBehaviour
         {
             GameManager.instance.EndGame();
         }
+    }
+
+    public void AirDash()
+    {
+        rb.velocity = new Vector2(0, 0);
+        if (facingRight)
+        {
+            rb.AddForce(new Vector2(500f, 0f));
+        }
+        else
+        {
+            rb.AddForce(new Vector2(-500f, 0f));
+        }
+        canAirDash = false;
     }
 
 }

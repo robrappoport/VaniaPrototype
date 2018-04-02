@@ -328,6 +328,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VaniaPrototype.Plugins.csproj">
+      <Project>{353E161A-9A9F-C131-6CAC-B756B557FEEB}</Project>
+      <Name>VaniaPrototype.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="VaniaPrototype.csproj">
       <Project>{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}</Project>
       <Name>VaniaPrototype</Name>

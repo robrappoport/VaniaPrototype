@@ -328,7 +328,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VaniaPrototype.Plugins.csproj">
+      <Project>{353E161A-9A9F-C131-6CAC-B756B557FEEB}</Project>
+      <Name>VaniaPrototype.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\CameraFollow.cs" />
+    <Compile Include="Assets\ChargerTypeScript.cs" />
     <Compile Include="Assets\RaycastPlayer\Controller2D.cs" />
     <Compile Include="Assets\RaycastPlayer\GameManager.cs" />
     <Compile Include="Assets\restart.cs" />

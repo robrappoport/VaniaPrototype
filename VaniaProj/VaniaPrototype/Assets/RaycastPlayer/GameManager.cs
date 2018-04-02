@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using SimpleJSON;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    public float rand;
-    public float randCap;
-    public GameObject coin;
-    public Vector2 [] spawnLoc;
-    public bool coinExists;
     public int currentCharge = 0;
+    public static List<ChargerTypeScript> chargerList;
+    public GameObject levelHolder;
+    public ChargerTypeScript currentActiveCharger;
     // Use this for initialization
     void Start()
     {
@@ -26,6 +25,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return; // Ensure we leave start if we're destroying ourself (Destroy actually just marks us as "to be destroyed soon").
         }
+
+        chargerList = new List<ChargerTypeScript>(levelHolder.GetComponentsInChildren<ChargerTypeScript>());
         print(Application.persistentDataPath);
         string fullFilePath = Application.dataPath + Path.DirectorySeparatorChar + "SaveData.txt";
         if (File.Exists(fullFilePath))
@@ -54,5 +55,10 @@ public class GameManager : MonoBehaviour
     {
 
         SceneManager.LoadScene("GameWonScreen");
+    }
+
+    public void AssignActiveCharger (ChargerTypeScript charger)
+    {
+        currentActiveCharger = charger;  
     }
 }
