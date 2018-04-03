@@ -1,12 +1,13 @@
 ﻿<Properties StartupConfiguration="{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/collectMe.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/finalDoor.cs">
     <Files>
       <File FileName="Assets/CameraFollow.cs" Line="22" Column="2" />
-      <File FileName="Assets/RaycastPlayer/GameManager.cs" Line="61" Column="41" />
-      <File FileName="Assets/RigidbodyPlayer/RigidbodyPlayer.cs" Line="55" Column="56" />
-      <File FileName="Assets/RigidbodyPlayer/SurroundingsCheck.cs" Line="44" Column="46" />
+      <File FileName="Assets/RaycastPlayer/GameManager.cs" Line="24" Column="29" />
+      <File FileName="Assets/RigidbodyPlayer/RigidbodyPlayer.cs" Line="195" Column="5" />
+      <File FileName="Assets/RigidbodyPlayer/SurroundingsCheck.cs" Line="40" Column="46" />
       <File FileName="Assets/ChargerTypeScript.cs" Line="18" Column="14" />
-      <File FileName="Assets/collectMe.cs" Line="7" Column="5" />
+      <File FileName="Assets/collectMe.cs" Line="17" Column="6" />
+      <File FileName="Assets/finalDoor.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
