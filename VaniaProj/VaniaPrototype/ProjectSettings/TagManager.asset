@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Coin
   - Charger
+  - Upgrade
   layers:
   - Default
   - TransparentFX

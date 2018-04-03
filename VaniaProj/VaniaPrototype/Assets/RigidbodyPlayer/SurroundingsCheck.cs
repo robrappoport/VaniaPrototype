@@ -7,10 +7,6 @@ public class SurroundingsCheck : MonoBehaviour {
     private Rigidbody2D rb;
     private RigidbodyPlayer player;
     public float raydist;
-    [Header("Upgrades Enabled")]
-    public bool doubleJumpEnabled = false;
-    public bool wallJumpEnabled = false;
-    public bool airDashEnabled = false;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -48,7 +44,7 @@ public class SurroundingsCheck : MonoBehaviour {
 
             if (hitLeft.collider != null)
             {
-                if (hitLeft.collider.tag == "Ground" && wallJumpEnabled)
+                if (hitLeft.collider.tag == "Ground" && GameManager.instance.wallJumpEnabled)
                 {
 
                     player.CanJump = true;
@@ -57,7 +53,7 @@ public class SurroundingsCheck : MonoBehaviour {
 
             if (hitRight.collider != null)
             {
-                if (hitRight.collider.tag == "Ground" && wallJumpEnabled)
+                if (hitRight.collider.tag == "Ground" && GameManager.instance.wallJumpEnabled)
                 {
 
                     player.CanJump = true;

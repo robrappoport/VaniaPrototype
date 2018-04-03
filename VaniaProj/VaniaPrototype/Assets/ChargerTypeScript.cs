@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChargerTypeScript : MonoBehaviour {
 
+    public bool bigCharger;
 	// Use this for initialization
 	void Start () {
 		

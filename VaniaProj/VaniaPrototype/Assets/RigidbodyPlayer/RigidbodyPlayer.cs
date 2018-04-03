@@ -7,7 +7,6 @@ public class RigidbodyPlayer : MonoBehaviour
 {
 
     private Rigidbody2D rb;
-    private SurroundingsCheck surroundingsChecker;
     public KeyCode[] myInputs;
     public float moveForce;
     public float initMoveForce;
@@ -20,9 +19,9 @@ public class RigidbodyPlayer : MonoBehaviour
     public bool Grounded;
     public float airborneHorizontalMovement;
     public bool facingRight;
-    public float maxCharge;
+    public float maxCharge, smallMaxCharge;
     public float currentCharge;
-    public bool onPlatform;
+    public bool onPlatform, haveTouchedPlatform = false;
     public Image chargeImage;
 
     [Header("Can Use Specials")]
@@ -32,7 +31,6 @@ public class RigidbodyPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        surroundingsChecker = GetComponent<SurroundingsCheck>();
         currentCharge = maxCharge;
         normJumpVel = jumpVelocity;
         rb = GetComponent<Rigidbody2D>();
@@ -46,11 +44,11 @@ public class RigidbodyPlayer : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log("velocity: " + rb.velocity);
+        //Debug.Log("velocity: " + rb.velocity);
         PlayerMovement();
         ChargeCheck();
 
-        if (surroundingsChecker.airDashEnabled)
+        if (GameManager.instance.airDashEnabled)
         {
             if (canAirDash && Input.GetKey(myInputs[3]))
             {
@@ -102,7 +100,7 @@ public class RigidbodyPlayer : MonoBehaviour
                 moveForce = initMoveForce;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.velocity = Vector2.up * jumpVelocity;
-                if (surroundingsChecker.doubleJumpEnabled == true)
+                if (GameManager.instance.doubleJumpEnabled == true)
                 {
                     canDoubleJump = true;
                 }
@@ -121,25 +119,32 @@ public class RigidbodyPlayer : MonoBehaviour
     }
     public void ChargeCheck()
     {
-        currentCharge = Mathf.Clamp(currentCharge, 0, maxCharge);
+       
         chargeImage.fillAmount = currentCharge *.01f;
         if (!onPlatform)
         {
             currentCharge -= Time.deltaTime * 12;
             GameManager.instance.currentCharge--;
+            haveTouchedPlatform = false;
         }
         if (onPlatform)
         {
-            currentCharge += Time.deltaTime * 10f;
-        }
-
-        if (currentCharge <= (maxCharge / 3))
-        {
-            jumpVelocity = (6);
-        }
-        else
-        {
-            jumpVelocity = normJumpVel;
+            if (!haveTouchedPlatform)
+            {
+                smallMaxCharge = currentCharge;
+                haveTouchedPlatform = true;
+            }
+            if (GameManager.instance.currentActiveCharger.bigCharger)
+            {
+                currentCharge = Mathf.Clamp(currentCharge, 0, maxCharge);
+                currentCharge += Time.deltaTime * 10f;  
+            }
+            else
+            {
+                currentCharge = Mathf.Clamp(currentCharge, 0, smallMaxCharge);
+                currentCharge += Time.deltaTime * 10f;  
+            }
+           
         }
 
         if (currentCharge <= 0)
@@ -161,5 +166,31 @@ public class RigidbodyPlayer : MonoBehaviour
         }
         canAirDash = false;
     }
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	
+	{
+        if (collision.gameObject.tag == "Upgrade")
+        {
+            Debug.Log(collision.gameObject);
+            switch (collision.GetComponent<collectMe>().collectable)
+            {
+                case collectMe.CollectableType.airDash: 
+                    GameManager.instance.airDashEnabled = true;
+                    Destroy(collision.gameObject);
+                    break;
+
+                case collectMe.CollectableType.doubleJump:
+                    GameManager.instance.doubleJumpEnabled = true;
+                    Destroy(collision.gameObject);
+                    break;
+
+                case collectMe.CollectableType.wallJump:
+                    GameManager.instance.wallJumpEnabled = true;
+                    Destroy(collision.gameObject);
+                    break;
+            }
+        }
+	}
 
 }

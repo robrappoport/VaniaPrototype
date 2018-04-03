@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public static List<ChargerTypeScript> chargerList;
     public GameObject levelHolder;
     public ChargerTypeScript currentActiveCharger;
+    [Header("Upgrades Enabled")]
+    public bool doubleJumpEnabled = false;
+    public bool wallJumpEnabled = false;
+    public bool airDashEnabled = false;
     // Use this for initialization
     void Start()
     {
@@ -41,7 +45,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentCharge = Mathf.Clamp(currentCharge, 0, 1000000000);
 
     }
 

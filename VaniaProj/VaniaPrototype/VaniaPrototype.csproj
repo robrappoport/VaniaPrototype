@@ -336,6 +336,7 @@
   <ItemGroup>
     <Compile Include="Assets\CameraFollow.cs" />
     <Compile Include="Assets\ChargerTypeScript.cs" />
+    <Compile Include="Assets\collectMe.cs" />
     <Compile Include="Assets\RaycastPlayer\Controller2D.cs" />
     <Compile Include="Assets\RaycastPlayer\GameManager.cs" />
     <Compile Include="Assets\restart.cs" />
