@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public int currentCharge = 0;
     public static List<ChargerTypeScript> chargerList;
-    public GameObject player;
+    public GameObject playerPrefab;
+    private Transform gameStartLoc;
+    private GameObject player;
     public GameObject levelHolder;
     public ChargerTypeScript currentActiveCharger;
     [Header("Upgrades Enabled")]
@@ -35,15 +37,23 @@ public class GameManager : MonoBehaviour
         }
 
         chargerList = new List<ChargerTypeScript>(levelHolder.GetComponentsInChildren<ChargerTypeScript>());
-        player = FindObjectOfType<RigidbodyPlayer>().gameObject;
-
+        gameStartLoc = GameObject.Find("GAME STARTO").transform;
        
 
     }
 
 	private void Start()
 	{
-        LoadLevel();
+        if (File.Exists(Application.dataPath + Path.DirectorySeparatorChar + "currentGameState.json"))
+        {
+            LoadLevel();  
+        }
+        else
+        {
+            player = Instantiate(playerPrefab, gameStartLoc.position, Quaternion.identity);
+            Camera.main.GetComponent<CameraFollow>().target = player;
+        }
+       
         if (doubleJumpEnabled == false)
         {
             Instantiate(Upgrades[0], upgradeSpawners[0]);
@@ -96,12 +106,14 @@ public class GameManager : MonoBehaviour
         JSONObject activeChargerJSON = levelJSON["playerSpawnPoint"].AsObject;
         float playerLocX = activeChargerJSON["x"].AsFloat;
         float playerLocY = activeChargerJSON["y"].AsFloat;
-        Instantiate(player, new Vector2(playerLocX, playerLocY), Quaternion.identity);
+        player = Instantiate(playerPrefab, new Vector2(playerLocX, playerLocY), Quaternion.identity);
+        doubleJumpEnabled = levelJSON["doubleJumpActive"].AsBool;
+        wallJumpEnabled = levelJSON["wallJumpActive"].AsBool;
+        airDashEnabled = levelJSON["airDashActive"].AsBool;
 
-        //load what upgrades are in play
+        player.GetComponent<RigidbodyPlayer>().smallMaxCharge = levelJSON["currentlyAvailableCharge"].AsFloat;
 
-        //load smallMaxCharge
-
+        Camera.main.GetComponent<CameraFollow>().target = player;
 
     }
     public void SaveLevel()
