@@ -34,6 +34,7 @@ public class RigidbodyPlayer : MonoBehaviour
         currentCharge = maxCharge;
         normJumpVel = jumpVelocity;
         rb = GetComponent<Rigidbody2D>();
+        chargeImage = GameObject.Find("fill").GetComponent<Image>();
     }
 
     // Update is called once per frame
