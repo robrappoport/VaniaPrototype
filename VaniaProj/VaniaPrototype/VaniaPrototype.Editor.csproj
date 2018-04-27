@@ -215,6 +215,9 @@
     <Reference Include="UnityEngine.WindModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -328,10 +331,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="VaniaPrototype.Plugins.csproj">
-      <Project>{353E161A-9A9F-C131-6CAC-B756B557FEEB}</Project>
-      <Name>VaniaPrototype.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="VaniaPrototype.csproj">
       <Project>{2C9B4189-2DAB-0F90-E92F-B831C7079FA4}</Project>
       <Name>VaniaPrototype</Name>
