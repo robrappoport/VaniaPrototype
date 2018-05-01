@@ -11,7 +11,7 @@ public class CameraFollow : MonoBehaviour
     public GameObject target;
 
 
-	private void LateUpdate()
+	private void FixedUpdate()
 	{
         float posX = Mathf.SmoothDamp(transform.position.x, target.transform.position.x, ref velocity.x, smoothTimeX);
         float posY = Mathf.SmoothDamp(transform.position.y, target.transform.position.y, ref velocity.y, smoothTimeY);

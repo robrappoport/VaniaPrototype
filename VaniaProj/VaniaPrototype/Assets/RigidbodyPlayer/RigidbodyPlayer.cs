@@ -13,6 +13,7 @@ public class RigidbodyPlayer : MonoBehaviour
     [Range(1, 20)]
     public float jumpVelocity;
     private float normJumpVel;
+    public float coyoteCounter = .05f;
     public float fallMultiplier;
     public float lowJumpMultiplier;
     public bool CanJump;
@@ -21,9 +22,11 @@ public class RigidbodyPlayer : MonoBehaviour
     public bool facingRight;
     public float maxCharge, smallMaxCharge;
     public float currentCharge;
-    public bool onPlatform, haveTouchedPlatform = false;
+    public bool onCharger, haveTouchedPlatform = false;
     public Image chargeImage;
 
+
+    public float airDashTimer = 0;
     [Header("Can Use Specials")]
     public bool canDoubleJump = false;
     public bool canAirDash = false;
@@ -51,8 +54,10 @@ public class RigidbodyPlayer : MonoBehaviour
 
         if (GameManager.instance.airDashEnabled)
         {
+            Debug.Log("can air dash");
             if (canAirDash && Input.GetKey(myInputs[3]))
             {
+                Debug.Log("air dashing");
                 AirDash();
             }
         }
@@ -61,20 +66,33 @@ public class RigidbodyPlayer : MonoBehaviour
         {
             moveForce = airborneHorizontalMovement;
         }
+        if (airDashTimer >= 0f)
+        {
+            airDashTimer -= Time.deltaTime;
+            if (airDashTimer <= 0f)
+            {
+                rb.gravityScale = 1f;
+            }
+        }
+
     }
 
 
     private void PlayerMovement()
     {
-        if (Input.GetKey(myInputs[0]))
+        if (airDashTimer <= 0f)
         {
-            transform.Translate(-Vector2.right * (moveForce * Time.deltaTime));
-            facingRight = false;
-        }
-        if (Input.GetKey(myInputs[1]))
-        {
-            transform.Translate(Vector2.right * (moveForce * Time.deltaTime));
-            facingRight = true;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            if (Input.GetKey(myInputs[0]))
+            {
+                rb.velocity += new Vector2(-moveForce, 0);
+                facingRight = false;
+            }
+            if (Input.GetKey(myInputs[1]))
+            {
+                rb.velocity += new Vector2(moveForce, 0);
+                facingRight = true;
+            }
         }
 
     }
@@ -96,7 +114,7 @@ public class RigidbodyPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(myInputs[2]))
         {
-            if (CanJump)
+            if (CanJump || coyoteCounter >= 0f)
             {
                 moveForce = initMoveForce;
                 rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -122,13 +140,13 @@ public class RigidbodyPlayer : MonoBehaviour
     {
        
         chargeImage.fillAmount = currentCharge *.01f;
-        if (!onPlatform)
+        if (!onCharger)
         {
             currentCharge -= Time.deltaTime * 12;
             GameManager.instance.currentCharge--;
             haveTouchedPlatform = false;
         }
-        if (onPlatform)
+        if (onCharger)
         {
             if (!haveTouchedPlatform)
             {
@@ -156,14 +174,17 @@ public class RigidbodyPlayer : MonoBehaviour
 
     public void AirDash()
     {
+        airDashTimer = .2f;
+        Debug.Log("In air dash");
         rb.velocity = new Vector2(0, 0);
+        rb.gravityScale = 0f;
         if (facingRight)
         {
-            rb.AddForce(new Vector2(500f, 0f));
+            rb.AddForce(new Vector2(1500f, 0f));
         }
         else
         {
-            rb.AddForce(new Vector2(-500f, 0f));
+            rb.AddForce(new Vector2(-1500f, 0f));
         }
         canAirDash = false;
     }

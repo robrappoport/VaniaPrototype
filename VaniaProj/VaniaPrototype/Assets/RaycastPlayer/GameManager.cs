@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            instance.Start();
             return; // Ensure we leave start if we're destroying ourself (Destroy actually just marks us as "to be destroyed soon").
         }
 
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-	private void Start()
+    public void Start()
 	{
         if (File.Exists(Application.dataPath + Path.DirectorySeparatorChar + "currentGameState.json"))
         {
@@ -71,6 +72,10 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            SaveLevel();
+        }
         if (Input.GetKeyUp(KeyCode.R))
         {
             SaveLevel();
@@ -143,4 +148,11 @@ public class GameManager : MonoBehaviour
         Debug.Log(levelJSONString);
         File.WriteAllText(filename, levelJSONString);
     }
+
+	private void OnApplicationQuit()
+	{
+        SaveLevel();
+	}
+
+
 }

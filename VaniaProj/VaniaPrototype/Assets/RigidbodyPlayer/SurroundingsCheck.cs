@@ -30,12 +30,12 @@ public class SurroundingsCheck : MonoBehaviour {
                 if (hitDown.collider.tag == "Ground")
                 {
                     player.CanJump = true;
-                    player.onPlatform = false;
+                    player.onCharger = false;
                     player.canAirDash = true;
                 }
                 else if (hitDown.collider.tag == "Charger")
                 {
-                    player.onPlatform = true;
+                    player.onCharger = true;
                     player.CanJump = true;
                     player.canAirDash = true;
                 }
@@ -65,8 +65,17 @@ public class SurroundingsCheck : MonoBehaviour {
         {
            
                 player.CanJump = false;
-                player.onPlatform = false;
+                player.onCharger = false;
 
+        }
+
+        if (!player.CanJump)
+        {
+            player.coyoteCounter -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            player.coyoteCounter = .05f;
         }
     }
 }
