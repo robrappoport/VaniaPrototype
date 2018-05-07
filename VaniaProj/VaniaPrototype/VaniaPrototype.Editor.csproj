@@ -349,7 +349,6 @@
     <Compile Include="Assets\Tiled2Unity\Scripts\Editor\TiledAssetPostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\SaveData.txt" />
     <None Include="Assets\Tiled2Unity\Imported\_ReadMe.txt" />
     <None Include="Assets\Tiled2Unity\Imported\vaniaMap.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\License.txt" />

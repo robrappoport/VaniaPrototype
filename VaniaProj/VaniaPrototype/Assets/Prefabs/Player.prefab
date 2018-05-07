@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761928847010880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5, y: -4.2, z: 0}
+  m_LocalPosition: {x: 5.782214, y: -2.92197, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,7 +114,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1761928847010880}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 78124616db5b446ab8b24573ae2f7961, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -143,9 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raydist: 1
-  doubleJumpEnabled: 0
-  wallJumpEnabled: 0
-  airDashEnabled: 0
+  myMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114337086546962960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,10 +157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70f2644d8980f44d9f5724fb52e137d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myInputs: 6100000064000000200000003f000000
+  myInputs: 6100000064000000200000002f010000
   moveForce: 12
   initMoveForce: 12
   jumpVelocity: 10
+  coyoteCounter: 0.05
   fallMultiplier: 6
   lowJumpMultiplier: 4
   CanJump: 0
@@ -168,8 +169,11 @@ MonoBehaviour:
   airborneHorizontalMovement: 9
   facingRight: 0
   maxCharge: 100
+  smallMaxCharge: 0
   currentCharge: 0
-  onPlatform: 0
+  onCharger: 0
+  haveTouchedPlatform: 0
   chargeImage: {fileID: 0}
+  airDashTimer: 0
   canDoubleJump: 0
   canAirDash: 0

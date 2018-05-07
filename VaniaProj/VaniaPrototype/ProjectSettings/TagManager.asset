@@ -8,6 +8,8 @@ TagManager:
   - Coin
   - Charger
   - Upgrade
+  - BoundaryManager
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - floor
   - Player
   - Ground
-  - 
+  - Boundary
   - 
   - 
   - 

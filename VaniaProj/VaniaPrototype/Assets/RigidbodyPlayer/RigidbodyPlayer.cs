@@ -142,7 +142,7 @@ public class RigidbodyPlayer : MonoBehaviour
         chargeImage.fillAmount = currentCharge *.01f;
         if (!onCharger)
         {
-            currentCharge -= Time.deltaTime * 12;
+            currentCharge -= Time.deltaTime * 5;
             GameManager.instance.currentCharge--;
             haveTouchedPlatform = false;
         }
@@ -156,12 +156,12 @@ public class RigidbodyPlayer : MonoBehaviour
             if (GameManager.instance.currentActiveCharger.bigCharger)
             {
                 currentCharge = Mathf.Clamp(currentCharge, 0, maxCharge);
-                currentCharge += Time.deltaTime * 10f;  
+                currentCharge += Time.deltaTime * 20f;  
             }
             else
             {
                 currentCharge = Mathf.Clamp(currentCharge, 0, smallMaxCharge);
-                currentCharge += Time.deltaTime * 10f;  
+                currentCharge += Time.deltaTime * 20f;  
             }
            
         }
